@@ -107,28 +107,28 @@ if __name__ == "__main__":
 
     args = rtvc_args()
 
-    checkpoint = torch.load(args.syn_model_fpath, 'cpu')
+    checkpoint = torch.load(args.voc_model_fpath, 'cpu')
     tentensor = checkpoint["model_state"]
     print(type(tentensor))
     tenlist = list(tentensor.items())
-    print(tenlist[3][1].size())
+    print(len(tenlist))
     print(tenlist[3][1:][0].size())
-    path = "saved_models/synthesizer/"
-    # temp_path = path
-    # tensors = []
-    # for i, ten in enumerate(tenlist):
-    #     tensor = ten[1:][0]
-    #     tensorr = ten[1]
-    #     print(tensor == tensorr)
-        # torch.save(tensor, os.path.join(path, "{}_{}.pt".format(str(i).zfill(3), ten[0])))
-    checkpoints = collections.OrderedDict()
-    for pt in os.listdir(path):
-        tensr = torch.load(os.path.join(path, pt))
-        checkpoints[pt[4:-3]] = tensr
-    # print(tentensor==checkpoints)
-    synthesizer = Synthesizer(args.syn_model_fpath)
-    synthesizer.model_state_load(checkpoints)
-    synthesizer.load()
+    path = "saved_models/vocoder/"
+    temp_path = path
+    tensors = []
+    for i, ten in enumerate(tenlist):
+        tensor = ten[1:][0]
+        # tensorr = ten[1]
+        # print(tensor == tensorr)
+        torch.save(tensor, os.path.join(path, "{}_{}.pt".format(str(i).zfill(3), ten[0])))
+    # checkpoints = collections.OrderedDict()
+    # for pt in os.listdir(path):
+    #     tensr = torch.load(os.path.join(path, pt))
+    #     checkpoints[pt[4:-3]] = tensr
+    # # print(tentensor==checkpoints)
+    # synthesizer = Synthesizer(args.syn_model_fpath)
+    # synthesizer.model_state_load(checkpoints)
+    # synthesizer.load()
 
     # # if args.pop("cpu"):
     # #     os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
